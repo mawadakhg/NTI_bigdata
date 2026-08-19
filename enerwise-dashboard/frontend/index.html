@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EnerWise · Executive Overview</title>
+<link rel="stylesheet" href="styles.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script>
+  if (typeof Chart === "undefined") {
+    document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"><\/script>');
+  }
+</script>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">⚡</div>
+        <div>
+          <div class="brand-title">EnerWise</div>
+          <div class="brand-sub">AI-Powered Energy Decision Support</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-item active" data-page="overview">Executive Overview</button>
+        <button class="nav-item" data-page="soon">Energy Analysis</button>
+        <button class="nav-item" data-page="soon">HVAC Analysis</button>
+        <button class="nav-item" data-page="soon">AI Predictions</button>
+        <button class="nav-item" data-page="soon">Building Health</button>
+        <button class="nav-item" data-page="soon">Detailed Analysis</button>
+      </nav>
+
+      <div class="filters">
+        <div class="filters-title">Filters</div>
+
+        <label class="filter-label">Building Type</label>
+        <select id="filterBuildingType"><option value="">All</option></select>
+
+        <label class="filter-label">HVAC System</label>
+        <select id="filterHvac"><option value="">All</option></select>
+      </div>
+
+      <div class="refresh">
+        <div id="statusDot" class="status-dot"></div>
+        <div>
+          <div class="refresh-title">Data source</div>
+          <div id="refreshTime" class="refresh-time">Connecting to Snowflake…</div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="content">
+      <header class="topbar">
+        <div>
+          <h1>Executive Overview</h1>
+          <p>Real-time summary of energy performance and building health, live from Snowflake</p>
+        </div>
+        <button id="reloadBtn" class="reload-btn">↻ Refresh</button>
+      </header>
+
+      <div id="errorBanner" class="error-banner" hidden></div>
+
+      <section class="kpi-row" id="kpiRow"></section>
+
+      <section class="grid grid-3">
+        <div class="card">
+          <div class="card-title">Energy Consumption by Building Type</div>
+          <canvas id="chartByType"></canvas>
+        </div>
+        <div class="card">
+          <div class="card-title">Energy Consumption by HVAC System</div>
+          <canvas id="chartByHvac"></canvas>
+        </div>
+        <div class="card">
+          <div class="card-title">Building Health Distribution</div>
+          <canvas id="chartHealth"></canvas>
+          <div id="healthLegend" class="legend"></div>
+        </div>
+      </section>
+
+      <section class="grid grid-3">
+        <div class="card">
+          <div class="card-title">Energy vs Room Area</div>
+          <canvas id="chartScatter"></canvas>
+        </div>
+        <div class="card">
+          <div class="card-title">Energy per Area by Building Type</div>
+          <canvas id="chartEpaByType"></canvas>
+        </div>
+        <div class="card">
+          <div class="card-title">Actual vs Predicted Energy</div>
+          <canvas id="chartActualPredicted"></canvas>
+        </div>
+      </section>
+
+      <section class="grid grid-3">
+        <div class="card card-wide">
+          <div class="card-title">Top Building Types by Energy Consumption</div>
+          <table class="data-table" id="topTable">
+            <thead>
+              <tr><th>Building Type</th><th>Total Energy (kWh)</th><th>Energy per Area</th><th>Health Score</th><th>Risk Level</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="card">
+          <div class="card-title">Prediction Accuracy</div>
+          <div class="accuracy-grid" id="accuracyGrid"></div>
+          <div class="gauge-wrap">
+            <canvas id="chartGauge"></canvas>
+            <div id="gaugeValue" class="gauge-value">–</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Recent Alerts</div>
+          <div id="alertsList" class="alerts-list"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
