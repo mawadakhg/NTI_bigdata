@@ -6,6 +6,7 @@ from pyspark.sql.types import (
 )
 
 
+
 spark = SparkSession.builder \
     .appName("EnerWise-ETL-Processing") \
     .getOrCreate()
